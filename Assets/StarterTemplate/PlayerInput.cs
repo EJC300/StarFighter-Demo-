@@ -88,6 +88,22 @@ public class PlayerInput : MonoBehaviour
         return rollInput;
     }
 
+    public Vector3 MouseJoystick()
+    {
+        // Get the mouse position in screen space
+        Vector3 mousePosition = Mouse.current.position.ReadValue();
+        // Convert mouse position to world space using the camera
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(
+            mousePosition.x,
+            mousePosition.y,
+            Camera.main.farClipPlane * 0.08f // Adjust this value as needed
+        ));
+        return worldPosition;
+    
+
+    }
+
+
     public Vector3 MousePositionInWorldWithJoystick(float Sensitivity)
     {
         // Get the virtual joystick input
@@ -104,7 +120,7 @@ public class PlayerInput : MonoBehaviour
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(
             screenPosition.x,
             screenPosition.y,
-           Camera.main.farClipPlane * 0.05f// Adjust this value as needed
+           Camera.main.farClipPlane * 2f// Adjust this value as needed
         ));
 
         return worldPosition;

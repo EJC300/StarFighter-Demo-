@@ -15,10 +15,10 @@ public class CursorController : MonoBehaviour
 
     private void Update()
     {
-       
-      //  Vector3 cursorScreenPosition = new Vector3(Mathf.Clamp(playerInput.MousePositionInWorldWithJoystick(1).x,0,Screen.width),
+
+        //  Vector3 cursorScreenPosition = new Vector3(Mathf.Clamp(playerInput.MousePositionInWorldWithJoystick(1).x,0,Screen.width),
         //    Mathf.Clamp(playerInput.MousePositionInWorldWithJoystick(1).y,0, Screen.height),Camera.main.farClipPlane);
-        Vector3 cursorScreenPosition = playerInput.MousePositionInWorldWithJoystick(1);
+        Vector3 cursorScreenPosition = playerInput.MouseJoystick();
         transform.position = Vector3.Lerp(transform.position, cursorScreenPosition - transform.position, Time.deltaTime * smoothingFactor);
 
      

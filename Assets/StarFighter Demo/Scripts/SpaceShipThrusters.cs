@@ -90,9 +90,18 @@ public class SpaceShipThrusters : MonoBehaviour
     }
     public void PreventGimbalLockPHysics()
     {
-        // Prevent gimbal lock by using Quaternion
-        Quaternion rotation = Quaternion.Euler(rb.transform.eulerAngles);
-        rb.MoveRotation(rotation);
+        // Prevent gimbal lock by using the dot product
+        Vector3 forward = rb.transform.forward;
+        Vector3 up = rb.transform.up;
+        Vector3 right = rb.transform.right;
+        Vector3 cross = Vector3.Cross(forward, up);
+        float dot = Vector3.Dot(cross, right);
+        if (Mathf.Abs( dot) < 0.1f)
+        {
+            // Apply a small torque to prevent gimbal lock
+            Vector3 torque = Vector3.Cross(forward, up) * rotationSpeed * 10;
+            rb.AddTorque(torque, ForceMode.Acceleration);
+        }
     }
     private void Start()
     {

@@ -50,9 +50,9 @@ public class PlayerShipController : MonoBehaviour
         float rollTorque = playerInput.RollAxis(); // Roll input from the player
 
         // Apply torque to the ship
-        spaceShipController.Pitch(pitchTorque);
-        spaceShipController.Yaw(yawTorque);
-        spaceShipController.Roll(rollTorque);
+        spaceShipController.Pitch(pitchTorque * spaceShipController.Thrusters.RotationSpeed * 0.2f);
+        spaceShipController.Yaw(yawTorque * spaceShipController.Thrusters.RotationSpeed * 0.2f);
+        spaceShipController.Roll(rollTorque * spaceShipController.Thrusters.RotationSpeed * 0.2f);
     }
     private void Roll()
     {

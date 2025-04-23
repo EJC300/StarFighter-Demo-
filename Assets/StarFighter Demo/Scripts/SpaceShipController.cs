@@ -23,7 +23,8 @@ public class SpaceShipController : MonoBehaviour
     }
     private void Update()
     {
-    
+
+       // BankWhileTurning();
         // Regenerate energy over time
         CurrentEnergy += (int)(energyPerSecond * Time.deltaTime);
         CurrentEnergy = Mathf.Clamp(CurrentEnergy, 0, MaxEnergy);
@@ -91,6 +92,35 @@ public class SpaceShipController : MonoBehaviour
         }
      
     }
+    public void BankWhileTurning()
+    {
+        // Bank the ship while turning
+        float bankAmount = thrusters.totalAngularVelocityInDegreesPerSecond.y;
+        float angle = Vector3.SignedAngle(thrusters.totalAngularVelocityInDegreesPerSecond, transform.forward, transform.up);
+        if (Mathf.Abs(thrusters.totalAngularVelocityInDegreesPerSecond.y) > 5)
+        {
+
+
+            bankAmount = Mathf.Sign(thrusters.totalAngularVelocityInDegreesPerSecond.y) * -45;
+        }
+        else
+        {
+            bankAmount = 0;
+        }
+        
+        Vector3 bankRotation = new Vector3(0,0, bankAmount);
+
+        if(Mathf.Abs( bankRotation.z) < 15)
+        {
+            transform.eulerAngles = Vector3.MoveTowards(transform.eulerAngles, transform.eulerAngles - bankRotation, Time.deltaTime);
+        }
+        else
+        {
+            transform.eulerAngles = Vector3.MoveTowards(transform.eulerAngles, new Vector3(transform.eulerAngles.x,transform.eulerAngles.y,0), Time.deltaTime);
+        }
+       
+    }
+    
     void Start()
     {
         thrusters = GetComponent<SpaceShipThrusters>();

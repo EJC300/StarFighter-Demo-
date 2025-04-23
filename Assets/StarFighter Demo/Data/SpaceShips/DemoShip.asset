@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DemoShip
   m_EditorClassIdentifier: 
   thrustForce: 250
-  rotationSpeed: 100
+  rotationSpeed: 25
   maxSpeed: 10
   AfterBurnerForce: 20
   AfterSpeed: 100
