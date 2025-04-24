@@ -67,15 +67,16 @@ namespace SpaceShip
         public void ApplyThrust(Vector3 direction)
         {
             // Apply thrust in the specified direction
-            rb.AddRelativeForce((direction).normalized * thrustForce, ForceMode.Acceleration);
-            rb.maxLinearVelocity = maxSpeed;
+            Vector3 localDirection = (direction);
+            rb.AddForce((localDirection) * thrustForce, ForceMode.Acceleration);
+          
         }
 
         public void ApplyTorque(Vector3 torque)
         {
             // Apply torque using Quaternion
-            Quaternion rotation = Quaternion.Euler(torque);
-            rb.AddTorque(rotation * torque * rotationSpeed, ForceMode.Acceleration);
+            
+            rb.AddTorque( torque * rotationSpeed, ForceMode.Acceleration);
         }
 
         public void ApplyAfterBurner(float input)
@@ -103,7 +104,7 @@ namespace SpaceShip
             {
                 // Apply a small torque to prevent gimbal lock
                 Vector3 torque = Vector3.Cross(forward, up) * rotationSpeed * 10;
-                rb.AddTorque(torque, ForceMode.Acceleration);
+                rb.AddRelativeTorque(torque, ForceMode.Acceleration);
             }
         }
         private void Start()
@@ -116,14 +117,14 @@ namespace SpaceShip
         private void ApplySlowDownForce()
         {
             // Apply slow down force
-            Vector3 slowDownForce = -rb.linearVelocity.normalized * thrustForce;
+            Vector3 slowDownForce = -rb.linearVelocity.normalized * thrustForce * 0.5f;
             rb.AddForce(slowDownForce, ForceMode.Acceleration);
         }
         private void FixedUpdate()
         {
-            // Apply rotational drag
+            //Apply rotational drag
             ApplyRotationalDrag();
-            PreventGimbalLockPHysics();
+        
             ApplySlowDownForce();
         }
 

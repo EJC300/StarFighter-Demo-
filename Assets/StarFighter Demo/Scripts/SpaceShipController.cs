@@ -66,13 +66,9 @@ public class SpaceShipController : MonoBehaviour
     public void Thrust(float thrustInput)
     {
         // Apply thrust to the ship
-        Vector3 thrustDirection = new Vector3(0, 0, thrustInput);
+        Vector3 thrustDirection = transform.forward * thrustInput;
         float dotProduct = Vector3.Dot(thrustDirection, transform.forward);
-        if (dotProduct < 0)
-        {
-            // If the thrust direction is opposite to the forward direction, negate it by half the thrust
-            thrustDirection = -thrustDirection * 0.5f;
-        }
+    
         thrusters.ApplyThrust(thrustDirection);
     }
    
