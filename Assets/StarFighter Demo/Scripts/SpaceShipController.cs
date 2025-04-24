@@ -1,4 +1,5 @@
 using System;
+using SpaceShip;
 using UnityEngine;
 [RequireComponent(typeof(SpaceShipThrusters))]
 public class SpaceShipController : MonoBehaviour
@@ -44,7 +45,7 @@ public class SpaceShipController : MonoBehaviour
     public void Roll(float rollInput)
     {
         // Roll the ship using quaternions
-        Vector3 rollhRotation = 0.20f * rollInput * thrusters.RotationSpeed * Time.deltaTime * transform.forward;
+        Vector3 rollhRotation = 0.20f * rollInput * thrusters.RotationSpeed * transform.forward;
         thrusters.ApplyTorque(rollhRotation);
     }
 

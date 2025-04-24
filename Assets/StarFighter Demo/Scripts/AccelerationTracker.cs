@@ -17,7 +17,7 @@ public class AccelerationTracker : MonoBehaviour
     {
         get
         {
-            return acceleration * 100f; // Convert from cm/s^2 to m/s^2
+            return acceleration; // Convert from cm/s^2 to m/s^2
         }
     }
 

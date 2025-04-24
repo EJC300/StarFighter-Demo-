@@ -1,5 +1,7 @@
 using UnityEngine;
+using SpaceShip;
 [RequireComponent(typeof(SpaceShipController),typeof(HudController))]
+
 public class PlayerShipController : MonoBehaviour
 {
     private HudController hudController
@@ -10,8 +12,6 @@ public class PlayerShipController : MonoBehaviour
     {
         get { return Singleton.instance.PlayerInput; }
     }
-
-    [SerializeField] private Transform CursorObject;
     public SpaceShipController spaceShipController
     {
         get { return GetComponent<SpaceShipController>(); }
@@ -31,28 +31,28 @@ public class PlayerShipController : MonoBehaviour
 
     private void AlignShipToCursor()
     {
-        // Calculate the direction to the cursor object
-        Vector3 cursorDirection = (CursorObject.position - transform.position).normalized;
+        // Get the screen center
+        Vector3 screenCenter = new Vector3(Screen.width / 2f, Screen.height / 2f, 0f);
 
-        // Get the ship's local axes
-        Vector3 shipForward = transform.forward;
-        Vector3 shipRight = transform.right;
-        Vector3 shipUp = transform.up;
+        // Get the cursor position in screen space
+        Vector3 cursorScreenPosition = playerInput.MousePosition();
 
-        // Calculate dot products to determine alignment
-        float forwardDot = Vector3.Dot(cursorDirection, shipForward); // Alignment with forward
-        float rightDot = Vector3.Dot(cursorDirection, shipRight);     // Alignment with right
-        float upDot = Vector3.Dot(cursorDirection, shipUp);           // Alignment with up
+        // Calculate the offset of the cursor from the screen center
+        Vector3 cursorOffset = cursorScreenPosition - screenCenter;
 
-        // Calculate torque based on cursor position
-        float pitchTorque = -upDot * Mathf.Abs(upDot); // Negative to pitch up when cursor is above
-        float yawTorque = rightDot * Mathf.Abs(rightDot); // Positive to yaw toward the cursor
+        // Normalize the offset to get a value between -1 and 1
+        float normalizedX = cursorOffset.x / (Screen.width / 2f);  // Horizontal offset
+        float normalizedY = cursorOffset.y / (Screen.height / 2f); // Vertical offset
+
+        // Calculate torque based on the normalized offset
+        float pitchTorque = -normalizedY; // Negative to pitch up when cursor is above
+        float yawTorque = normalizedX;   // Positive to yaw toward the cursor
         float rollTorque = playerInput.RollAxis(); // Roll input from the player
 
         // Apply torque to the ship
-        spaceShipController.Pitch(pitchTorque * spaceShipController.Thrusters.RotationSpeed * 0.2f);
-        spaceShipController.Yaw(yawTorque * spaceShipController.Thrusters.RotationSpeed * 0.2f);
-        spaceShipController.Roll(rollTorque * spaceShipController.Thrusters.RotationSpeed * 0.2f);
+        spaceShipController.Pitch(pitchTorque * spaceShipController.Thrusters.RotationSpeed);
+        spaceShipController.Yaw(yawTorque * spaceShipController.Thrusters.RotationSpeed);
+        spaceShipController.Roll(rollTorque * spaceShipController.Thrusters.RotationSpeed);
     }
     private void Roll()
     {
@@ -66,8 +66,8 @@ public class PlayerShipController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        // Calculate the direction to the cursor object
-        Vector3 cursorDirection = (CursorObject.position - transform.position).normalized;
+       
+   
 
         // Align the ship's forward direction with the cursor direction
        // ApplyTorqueTowardsCursor(cursorDirection);
@@ -85,31 +85,5 @@ public class PlayerShipController : MonoBehaviour
 
     }
 }
-    /*
-    private void ApplyTorqueTowardsCursor(Vector3 targetDirection)
-    {
+   
     
-        // Calculate the rotation needed to align with the target direction
-        Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);
-        Quaternion currentRotation = transform.rotation;
-
-        // Calculate the difference in rotation
-        Quaternion rotationDifference = targetRotation * Quaternion.Inverse(currentRotation);
- 
-    
-        // Apply damping based on angular velocity
-        // Convert the rotation difference to an angular velocity
-        Vector3 angularVelocity = new Vector3(
-            Mathf.DeltaAngle(0, rotationDifference.eulerAngles.x),
-            Mathf.DeltaAngle(0, rotationDifference.eulerAngles.y),
-            Mathf.DeltaAngle(0, rotationDifference.eulerAngles.z)
-        );
-        float dampingFactor = 0.5f; // Adjust this value to control damping strength
-        angularVelocity -= spaceShipController.GetAngularVelocity() * dampingFactor;
-        // Apply torque to align the ship
-        spaceShipController.Pitch(angularVelocity.x);
-        spaceShipController.Yaw(angularVelocity.y);
-       // spaceShipController.PreventGimbalLockPhysics();
-    }
-}
-    */

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
+using SpaceShip;
 public class HudController : MonoBehaviour
 {
     // HUD controller for the spaceship

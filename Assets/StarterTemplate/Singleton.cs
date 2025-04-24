@@ -12,10 +12,24 @@ public class Singleton : MonoBehaviour
     public GameManager GameManager { get { return gameManager; } set { gameManager = value; } }
     public PlayerInput PlayerInput { get { return playerInput; } set { playerInput = value; } }
 
+    public void OnValidate()
+    {
+        // Ensure that the instance is not destroyed when loading a new scene
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        else
+        {
+            instance = this;
+        }
+        Debug.Log("Singleton instance created.");
+        DontDestroyOnLoad(gameObject);
+    }
 
 
-
-   public void Awake()
+    public void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
         gameManager = GetComponent<GameManager>();

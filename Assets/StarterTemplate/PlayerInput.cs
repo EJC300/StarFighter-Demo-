@@ -87,7 +87,15 @@ public class PlayerInput : MonoBehaviour
         }
         return rollInput;
     }
-
+    public Vector3 MousePosition()
+    {
+        Vector3 mousePosition = new Vector3(
+            Mouse.current.position.ReadValue().x,
+            Mouse.current.position.ReadValue().y,
+            0f // Use 0 for the z-coordinate in screen space
+        );
+        return mousePosition;
+    }
     public Vector3 MouseJoystick()
     {
         // Get the mouse position in screen space
@@ -96,7 +104,7 @@ public class PlayerInput : MonoBehaviour
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(
             mousePosition.x,
             mousePosition.y,
-            Camera.main.farClipPlane * 0.08f // Adjust this value as needed
+            Camera.main.nearClipPlane * 25 // Adjust this value as needed
         ));
         return worldPosition;
     
