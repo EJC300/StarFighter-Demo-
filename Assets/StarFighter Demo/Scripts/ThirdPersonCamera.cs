@@ -15,15 +15,16 @@ namespace Cameras {
     
 
 
-        void LateUpdate()
+        void Update()
         {
             if (target == null)
                 return;
 
             // Calculate the desired position
-            Vector3 desiredPosition = target.position + Vector3.up * height - target.forward * distance;
 
+            Vector3 desiredPosition = target.position + target.up * height - target.forward * distance;
 
+            
 
 
 

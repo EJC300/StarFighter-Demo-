@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8ec8db4da003054e8ab3778f756e701, type: 3}
-  m_Name: DemoShip
+  m_Script: {fileID: 11500000, guid: d8c9b1022a4368049ac364e9758f0e36, type: 3}
+  m_Name: Bolt
   m_EditorClassIdentifier: 
-  thrustForce: 50
-  rotationSpeed: 8
-  maxSpeed: 600
-  AfterBurnerForce: 120
-  AfterSpeed: 1600
-  afterBurnerDrainRate: 1
+  speed: 10
+  damage: 10
+  lifetime: 5
+  bulletModel: {fileID: 872374946102215370, guid: 40fca6f3e2c0abd48a48f17468ca8031, type: 3}
+  explosionPrefab: {fileID: 0}

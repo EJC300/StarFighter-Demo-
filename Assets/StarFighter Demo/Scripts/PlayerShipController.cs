@@ -73,8 +73,7 @@ public class PlayerShipController : MonoBehaviour
     }
     private void Update()
     {
-        // Debug log to check the player's ship position and rotation
-        Debug.Log($"PlayerShip Position: {transform.position}, PlayerShip Rotation: {transform.rotation}");
+       
 
     }
     private void FixedUpdate()
@@ -84,16 +83,16 @@ public class PlayerShipController : MonoBehaviour
        // ApplyTorqueTowardsCursor(cursorDirection);
 
         // Apply thrust in the forward direction
-        ApplyThrustToShip(transform.forward);
+        ApplyThrustToShip(Vector3.forward);
        AlignShipToCursor();
         // Apply afterburner if needed
-        ApplyAfterBurnerToShip(transform.forward);
+        ApplyAfterBurnerToShip(Vector3.forward);
         // Handle roll input
         Roll();
         Bankship();
        // hudController.BoreSightMarker(spaceShipController.Thrusters);
       //  hudController.UpdateSpeedometer(spaceShipController.Thrusters.totalLinearVelocityInMetersPerSecond);
-        hudController.UpdateEnergyBar(spaceShipController.GetCurrentEnergy(), spaceShipController.MaxEnergy);
+        //hudController.UpdateEnergyBar(spaceShipController.GetCurrentEnergy(), spaceShipController.MaxEnergy);
 
     }
 }

@@ -31,21 +31,7 @@ public class HudController : MonoBehaviour
         get { return GetComponent<PlayerShipController>(); }
     }
     // Subscribe to the events in the Start method
-    private void Start()
-    {
-        // Subscribe to the events
-        OnEnergyBarUpdate += UpdateEnergyBar;
-        OnSpeedometerUpdate += UpdateSpeedometer;
-        OnBoreSightMarkerUpdate += BoreSightMarker;
-    }
-    // Unsubscribe from the events in the OnDestroy method
-    private void OnDestroy()
-    {
-        // Unsubscribe from the events
-        OnEnergyBarUpdate -= UpdateEnergyBar;
-        OnSpeedometerUpdate -= UpdateSpeedometer;
-        OnBoreSightMarkerUpdate -= BoreSightMarker;
-    }
+
     // Use an event to update the energy bar
     // Use an event to update the speedometer
 
@@ -57,10 +43,10 @@ public class HudController : MonoBehaviour
     //Use an event to update the HUD
 
 
-    public void UpdateEnergyBar(int currentEnergy, int maxEnergy)
+    public void UpdateEnergyBar(float currentEnergy, float maxEnergy)
     {
         // Update the energy bar and text
-        energyBar.value = (float)currentEnergy / maxEnergy;
+        energyBar.value = currentEnergy / maxEnergy;
       //  energyText.text = $"{currentEnergy}/{maxEnergy}";
     }
 
@@ -92,6 +78,6 @@ public class HudController : MonoBehaviour
     {
         // Update the HUD elements based on the ship's state
         SpaceShipThrusters spaceShipThrusters = GetComponent<SpaceShipThrusters>();
-        OnEnergyBarUpdate?.Invoke(playerShipController.spaceShipController.GetCurrentEnergy(), playerShipController.spaceShipController.MaxEnergy);
+        UpdateEnergyBar(playerShipController.spaceShipController.GetCurrentEnergy(),playerShipController.spaceShipController.MaxEnergy);
     }
 }

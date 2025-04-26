@@ -26,6 +26,12 @@ public class PlayerInput : MonoBehaviour
         return Mouse.current.delta.ReadValue().x;
     }
 
+    //This method returns fire input from the mouse.
+    public bool FireInput()
+    {       // This method returns true if the player pressed the fire button.
+            // It uses the mouse button to check if the player is firing.
+        return Mouse.current.leftButton.isPressed;
+    }
     public Vector3 VirtualMouseJoystick(float Sensitivity)
     {
         // Get the mouse delta

@@ -381,7 +381,7 @@ MonoBehaviour:
   target: {fileID: 649150283}
   distance: 35
   height: 4
-  damping: 5
+  damping: 8
   rotationDamping: 10
 --- !u!45 &330585549
 Skybox:

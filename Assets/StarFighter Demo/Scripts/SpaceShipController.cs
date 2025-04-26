@@ -14,7 +14,7 @@ public class SpaceShipController : MonoBehaviour
         set { thrusters = value; }
     }
     private int maxEnergy = 100;
-    private int CurrentEnergy = 100;
+    [SerializeField] private float CurrentEnergy = 100;
     private int energyPerSecond = 1;
 
     public int MaxEnergy
@@ -24,22 +24,22 @@ public class SpaceShipController : MonoBehaviour
     }
     private void Update()
     {
-        // Debug log to check the spaceship's position and rotation
-        Debug.Log($"SpaceShip Position: {transform.position}, SpaceShip Rotation: {transform.rotation}");
-
+      
         // BankWhileTurning();
         // Regenerate energy over time
-        CurrentEnergy += (int)(energyPerSecond * Time.deltaTime);
+        CurrentEnergy += (int)(energyPerSecond) * Time.deltaTime;
         CurrentEnergy = Mathf.Clamp(CurrentEnergy, 0, MaxEnergy);
+        Debug.Log(GetCurrentEnergy());
     }
 
     public void DrainEnergy(int amount)
     {
         // Drain energy from the ship
-        CurrentEnergy -= amount;
+        CurrentEnergy -= amount * Time.deltaTime;
         CurrentEnergy = Mathf.Clamp(CurrentEnergy, 0, MaxEnergy);
+        //Debug.Log($"Current Energy: {CurrentEnergy}");
     }
-    public int GetCurrentEnergy()
+    public float GetCurrentEnergy()
     {
         // Get the current energy level of the ship
         return CurrentEnergy;
@@ -69,7 +69,7 @@ public class SpaceShipController : MonoBehaviour
     {
         // Apply thrust to the ship
         Vector3 thrustDirection = transform.forward * thrustInput;
-        float dotProduct = Vector3.Dot(thrustDirection, transform.forward);
+    
     
         thrusters.ApplyThrust(thrustDirection);
     }
@@ -82,7 +82,7 @@ public class SpaceShipController : MonoBehaviour
         // Apply afterburner force
         if(CurrentEnergy > 0)
         {
-            DrainEnergy((int)thrusters.AfterBurnerDraineRate) ;
+           // DrainEnergy((int)thrusters.AfterBurnerDraineRate) ;
             thrusters.ApplyAfterBurner(input);
         }
         else

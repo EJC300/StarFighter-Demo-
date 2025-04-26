@@ -67,7 +67,7 @@ namespace SpaceShip
         public void ApplyThrust(Vector3 direction)
         {
             // Apply thrust in the specified direction
-            rb.AddRelativeForce((direction).normalized * thrustForce, ForceMode.Acceleration);
+            rb.AddForce((direction).normalized * thrustForce, ForceMode.Acceleration);
             rb.maxLinearVelocity = maxSpeed;
         }
 
@@ -116,7 +116,7 @@ namespace SpaceShip
         private void ApplySlowDownForce()
         {
             // Apply slow down force
-            Vector3 slowDownForce = -rb.linearVelocity.normalized * thrustForce;
+            Vector3 slowDownForce = -rb.linearVelocity.normalized * thrustForce * 0.5f;
             rb.AddForce(slowDownForce, ForceMode.Acceleration);
         }
         private void FixedUpdate()
