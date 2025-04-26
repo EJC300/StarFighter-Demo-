@@ -379,10 +379,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 649150283}
-  distance: 75
+  distance: 35
   height: 4
   damping: 5
-  rotationDamping: 2.2
+  rotationDamping: 10
 --- !u!45 &330585549
 Skybox:
   m_ObjectHideFlags: 0

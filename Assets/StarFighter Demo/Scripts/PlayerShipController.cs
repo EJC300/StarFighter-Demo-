@@ -28,7 +28,19 @@ public class PlayerShipController : MonoBehaviour
     {
         spaceShipController.ApplyAfterBurner(direction.z * playerInput.AfterBurnerAxis());
     }
+    private void Bankship()
+    {
+        // Get the Y input from the player
+        float yawInput = playerInput.MouseYaw();
 
+        // Calculate the target banking angle based on the input
+        float targetBankAngle = -yawInput * 15; // Adjust the multiplier to control the banking sensitivity
+        Quaternion targetRotation = Quaternion.Euler(transform.GetChild(0).transform.localEulerAngles.x, transform.GetChild(0).transform.localEulerAngles.y, targetBankAngle);
+        float clampedAngle = Mathf.Clamp(targetBankAngle, -15, 15); // Clamp the angle to a range of -15 to 15 degrees
+        targetRotation = Quaternion.Euler(transform.GetChild(0).transform.localEulerAngles.x, transform.GetChild(0).transform.localEulerAngles.y, clampedAngle);
+
+        transform.GetChild(0).localRotation= Quaternion.Slerp(transform.GetChild(0).localRotation, targetRotation, Time.deltaTime * spaceShipController.Thrusters.RotationSpeed * 0.5f);
+    }
     private void AlignShipToCursor()
     {
         // Get the screen center
@@ -61,29 +73,27 @@ public class PlayerShipController : MonoBehaviour
     }
     private void Update()
     {
-      
+        // Debug log to check the player's ship position and rotation
+        Debug.Log($"PlayerShip Position: {transform.position}, PlayerShip Rotation: {transform.rotation}");
 
     }
     private void FixedUpdate()
     {
        
-   
-
         // Align the ship's forward direction with the cursor direction
        // ApplyTorqueTowardsCursor(cursorDirection);
 
         // Apply thrust in the forward direction
         ApplyThrustToShip(transform.forward);
-        AlignShipToCursor();
+       AlignShipToCursor();
         // Apply afterburner if needed
         ApplyAfterBurnerToShip(transform.forward);
         // Handle roll input
         Roll();
+        Bankship();
        // hudController.BoreSightMarker(spaceShipController.Thrusters);
       //  hudController.UpdateSpeedometer(spaceShipController.Thrusters.totalLinearVelocityInMetersPerSecond);
         hudController.UpdateEnergyBar(spaceShipController.GetCurrentEnergy(), spaceShipController.MaxEnergy);
 
     }
 }
-   
-    

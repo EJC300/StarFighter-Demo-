@@ -24,8 +24,10 @@ public class SpaceShipController : MonoBehaviour
     }
     private void Update()
     {
+        // Debug log to check the spaceship's position and rotation
+        Debug.Log($"SpaceShip Position: {transform.position}, SpaceShip Rotation: {transform.rotation}");
 
-       // BankWhileTurning();
+        // BankWhileTurning();
         // Regenerate energy over time
         CurrentEnergy += (int)(energyPerSecond * Time.deltaTime);
         CurrentEnergy = Mathf.Clamp(CurrentEnergy, 0, MaxEnergy);
@@ -66,13 +68,9 @@ public class SpaceShipController : MonoBehaviour
     public void Thrust(float thrustInput)
     {
         // Apply thrust to the ship
-        Vector3 thrustDirection = new Vector3(0, 0, thrustInput);
+        Vector3 thrustDirection = transform.forward * thrustInput;
         float dotProduct = Vector3.Dot(thrustDirection, transform.forward);
-        if (dotProduct < 0)
-        {
-            // If the thrust direction is opposite to the forward direction, negate it by half the thrust
-            thrustDirection = -thrustDirection * 0.5f;
-        }
+    
         thrusters.ApplyThrust(thrustDirection);
     }
    
