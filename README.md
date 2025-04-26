@@ -7,17 +7,17 @@
  Weapons effect energy drain 
  Weapon projectiles are effected by speed of the ship
 
- #Working On Current Features
+ # Working On Current Features
  HUD-> Boresight , energy , and currently selected weapon
  Fixing the camera 
  Fixing the afterburner
  Floating point issues
  
- #Future Features:
+ # Future Features:
  Cockpit
  Special Effects
  Static "Enemy" to shoot at
  Sounds
- 
+ ## 
  I may include this in a future project, remains to be seen.
  
