@@ -28,17 +28,7 @@ public class PlayerShipController : MonoBehaviour
     {
         spaceShipController.ApplyAfterBurner(direction.z * playerInput.AfterBurnerAxis());
     }
-    private void Bankship()
-    {
-        // Get the Y input from the player
-        float yawInput = playerInput.MouseYaw();
 
-        // Calculate the target banking angle based on the input
-        float targetBankAngle = -yawInput * 15; // Adjust the multiplier to control the banking sensitivity
-        Quaternion targetRotation = Quaternion.Euler(transform.GetChild(0).transform.localEulerAngles.z, transform.GetChild(0).transform.localEulerAngles.x, targetBankAngle);
-
-       transform.GetChild(0).localRotation= Quaternion.Slerp(transform.GetChild(0).localRotation, targetRotation, Time.deltaTime * spaceShipController.Thrusters.RotationSpeed);
-    }
     private void AlignShipToCursor()
     {
         // Get the screen center
@@ -83,13 +73,12 @@ public class PlayerShipController : MonoBehaviour
        // ApplyTorqueTowardsCursor(cursorDirection);
 
         // Apply thrust in the forward direction
-        ApplyThrustToShip(Vector3.forward);
-       AlignShipToCursor();
+        ApplyThrustToShip(transform.forward);
+        AlignShipToCursor();
         // Apply afterburner if needed
-        ApplyAfterBurnerToShip(Vector3.forward);
+        ApplyAfterBurnerToShip(transform.forward);
         // Handle roll input
         Roll();
-        Bankship();
        // hudController.BoreSightMarker(spaceShipController.Thrusters);
       //  hudController.UpdateSpeedometer(spaceShipController.Thrusters.totalLinearVelocityInMetersPerSecond);
         hudController.UpdateEnergyBar(spaceShipController.GetCurrentEnergy(), spaceShipController.MaxEnergy);

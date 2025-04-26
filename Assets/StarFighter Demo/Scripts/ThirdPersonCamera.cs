@@ -13,11 +13,8 @@ namespace Cameras {
 
         [SerializeField] private float rotationDamping = 10.0f; // Damping factor for smooth rotation
 
-        private Vector3 velocity = Vector3.zero; // Used for smoothing the camera movement
-        
-     
 
-        void FixedUpdate()
+        void LateUpdate()
         {
             if (target == null)
                 return;
@@ -30,7 +27,7 @@ namespace Cameras {
 
 
             // Smoothly move the camera to the desired position
-            transform.position = Vector3.SmoothDamp(transform.position, desiredPosition,ref velocity, Time.deltaTime * damping);
+            transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * damping);
             // Calculate the rotation to look at the target
             Quaternion desiredRotation = Quaternion.LookRotation(target.position - transform.position);
 
