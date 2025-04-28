@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8ec8db4da003054e8ab3778f756e701, type: 3}
   m_Name: DemoShip
   m_EditorClassIdentifier: 
-  thrustForce: 50
+  thrustForce: 30
   rotationSpeed: 8
-  maxSpeed: 600
-  AfterBurnerForce: 120
-  AfterSpeed: 1600
+  maxSpeed: 120
+  AfterBurnerForce: 4
+  AfterSpeed: 200
   afterBurnerDrainRate: 1

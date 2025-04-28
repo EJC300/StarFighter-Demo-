@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8c9b1022a4368049ac364e9758f0e36, type: 3}
   m_Name: GunBullet
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 50
   damage: 10
   lifetime: 5
   bulletModel: {fileID: 3381701874107772647, guid: 2704176580383b743852f19ee5958639, type: 3}

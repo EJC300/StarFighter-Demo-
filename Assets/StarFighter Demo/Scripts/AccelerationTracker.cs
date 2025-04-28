@@ -17,11 +17,12 @@ public class AccelerationTracker : MonoBehaviour
     {
         get
         {
-            return acceleration; // Convert from cm/s^2 to m/s^2
+            return acceleration/100; // Convert from cm/s^2 to m/s^2
         }
     }
-
-
+    //Calculate rigidbody acceleration
+    // Calculate acceleration in meters per second
+ 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();

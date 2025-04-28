@@ -112,11 +112,16 @@ namespace SpaceShip
             rb.maxAngularVelocity = rotationSpeed;
             rb.maxLinearVelocity = maxSpeed;
         }
-
+        private void ApplyDrag()
+        {
+            // Apply drag to the ship
+            Vector3 dragForce = -rb.linearVelocity.normalized * rb.linearVelocity.magnitude * 0.1f;
+            rb.AddForce(dragForce, ForceMode.Acceleration);
+        }
         private void ApplySlowDownForce()
         {
             // Apply slow down force
-            Vector3 slowDownForce = -rb.linearVelocity.normalized * thrustForce * 0.5f;
+            Vector3 slowDownForce = -rb.linearVelocity.normalized * thrustForce * 0.75f;
             rb.AddForce(slowDownForce, ForceMode.Acceleration);
         }
         private void FixedUpdate()
@@ -125,6 +130,7 @@ namespace SpaceShip
             ApplyRotationalDrag();
             PreventGimbalLockPHysics();
             ApplySlowDownForce();
+            ApplyDrag();
         }
 
     }
