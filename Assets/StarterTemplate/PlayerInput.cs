@@ -51,7 +51,12 @@ public class PlayerInput : MonoBehaviour
         return joystickInput;
     }
 
-
+    public bool SwitchCamera()
+    {
+        // This method returns true if the player pressed the switch camera button.
+        // It uses the joystick button to check if the player is switching cameras.
+        return Keyboard.current.cKey.wasPressedThisFrame;
+    }
     public float ThrustAxis()
     {
         // This method returns the thrust input from the joystick.

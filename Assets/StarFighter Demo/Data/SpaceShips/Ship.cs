@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Ship", menuName = "Scriptable Objects/Ship")]
 public class Ship : ScriptableObject
 {
-
+    public Rigidbody rb;
     public float thrustForce = 10f;
 
     public float rotationSpeed = 100f;

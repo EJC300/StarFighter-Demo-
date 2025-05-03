@@ -1,7 +1,6 @@
 using System;
 using SpaceShip;
 using UnityEngine;
-[RequireComponent(typeof(SpaceShipThrusters))]
 public class SpaceShipController : MonoBehaviour
 {
 
@@ -29,7 +28,7 @@ public class SpaceShipController : MonoBehaviour
         // Regenerate energy over time
         CurrentEnergy += (int)(energyPerSecond) * Time.deltaTime;
         CurrentEnergy = Mathf.Clamp(CurrentEnergy, 0, MaxEnergy);
-        Debug.Log(GetCurrentEnergy());
+      
     }
 
     public void DrainEnergy(int amount)
@@ -44,25 +43,19 @@ public class SpaceShipController : MonoBehaviour
         // Get the current energy level of the ship
         return CurrentEnergy;
     }
-    public void Roll(float rollInput)
+    public void ApplyShipRotation(float inputX,float inputY,float inputZ)
     {
-        // Roll the ship using quaternions
-        Vector3 rollhRotation = 0.20f * rollInput * thrusters.RotationSpeed * transform.forward;
-        thrusters.ApplyTorque(rollhRotation);
-    }
+        Vector3 x = inputX * Vector3.right;
+        Vector3 y = inputY * Vector3.up;
+        Vector3 z = inputZ * Vector3.forward;
 
-    public void Pitch(float pitchInput)
-    {
-        // Pitch the ship using quaternions
-        Vector3 pitchRotation = pitchInput * thrusters.RotationSpeed * Time.deltaTime * transform.right;
-        thrusters.ApplyTorque(pitchRotation);
-    }
+        Vector3 shipRotationVector = x + y + z;
 
-    public void Yaw(float yawInput)
-    {
-        // Yaw the ship using quaternions
-        Vector3 yawRotation = yawInput * thrusters.RotationSpeed * Time.deltaTime * transform.up;
-        thrusters.ApplyTorque(yawRotation);
+        thrusters.ApplyTorque(shipRotationVector);
+
+
+
+        
     }
 
     public void Thrust(float thrustInput)

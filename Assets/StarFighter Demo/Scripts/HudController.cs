@@ -78,6 +78,6 @@ public class HudController : MonoBehaviour
     {
         // Update the HUD elements based on the ship's state
         SpaceShipThrusters spaceShipThrusters = GetComponent<SpaceShipThrusters>();
-        UpdateEnergyBar(playerShipController.spaceShipController.GetCurrentEnergy(),playerShipController.spaceShipController.MaxEnergy);
+      
     }
 }

@@ -1,33 +1,22 @@
 using UnityEngine;
 using SpaceShip;
-[RequireComponent(typeof(SpaceShipController),typeof(HudController))]
+[RequireComponent(typeof(Rigidbody))]
 
 public class PlayerShipController : MonoBehaviour
 {
-    private HudController hudController
-    {
-        get { return GetComponent<HudController>(); }
-    }
     private PlayerInput playerInput
     {
         get { return Singleton.instance.PlayerInput; }
     }
-    public SpaceShipController spaceShipController
+    private Rigidbody rb
     {
-        get { return GetComponent<SpaceShipController>(); }
+        get { return GetComponent<Rigidbody>(); }
     }
 
-    
-    private void ApplyThrustToShip(Vector3 direction)
-    {
+    [SerializeField] private Ship ship;
+  
 
-        spaceShipController.Thrust(direction.z * playerInput.ThrustAxis());
-    }
-
-    private void ApplyAfterBurnerToShip(Vector3 direction)
-    {
-        spaceShipController.ApplyAfterBurner(direction.z * playerInput.AfterBurnerAxis());
-    }
+  
     private void Bankship()
     {
         // Get the Y input from the player
@@ -39,9 +28,9 @@ public class PlayerShipController : MonoBehaviour
         float clampedAngle = Mathf.Clamp(targetBankAngle, -15, 15); // Clamp the angle to a range of -15 to 15 degrees
         targetRotation = Quaternion.Euler(transform.GetChild(0).transform.localEulerAngles.x, transform.GetChild(0).transform.localEulerAngles.y, clampedAngle);
 
-        transform.GetChild(0).localRotation= Quaternion.Slerp(transform.GetChild(0).localRotation, targetRotation, Time.deltaTime * spaceShipController.Thrusters.RotationSpeed * 0.5f);
+        transform.GetChild(0).localRotation= Quaternion.Slerp(transform.GetChild(0).localRotation, targetRotation, Time.deltaTime * ship.rotationSpeed * 0.5f);
     }
-    private void AlignShipToCursor()
+    private void ApplyPlayerRotation()
     {
         // Get the screen center
         Vector3 screenCenter = new Vector3(Screen.width / 2f, Screen.height / 2f, 0f);
@@ -62,34 +51,28 @@ public class PlayerShipController : MonoBehaviour
         float rollTorque = playerInput.RollAxis(); // Roll input from the player
 
         // Apply torque to the ship
-        spaceShipController.Pitch(pitchTorque * spaceShipController.Thrusters.RotationSpeed);
-        spaceShipController.Yaw(yawTorque * spaceShipController.Thrusters.RotationSpeed);
-        spaceShipController.Roll(rollTorque * spaceShipController.Thrusters.RotationSpeed);
-    }
-    private void Roll()
-    {
         float rollInput = playerInput.RollAxis();
-        spaceShipController.Roll(rollInput);
-    }
-    private void Update()
-    {
-       
+
+        transform.Rotate(pitchTorque, yawTorque, rollTorque);
 
     }
+
+    void ApplyThrust()
+    {
+      float inputForward = ship.thrustForce * playerInput.ThrustAxis();
+        // float inputAfterBurner = ship.AfterBurnerForce * Time.deltaTime * playerInput.AfterBurnerAxis();
+        rb.AddRelativeForce(Vector3.forward * inputForward);
+    }
+    
     private void FixedUpdate()
     {
-       
+        ApplyThrust();
+        ApplyPlayerRotation();
         // Align the ship's forward direction with the cursor direction
        // ApplyTorqueTowardsCursor(cursorDirection);
 
         // Apply thrust in the forward direction
-        ApplyThrustToShip(Vector3.forward);
-       AlignShipToCursor();
-        // Apply afterburner if needed
-        ApplyAfterBurnerToShip(Vector3.forward);
-        // Handle roll input
-        Roll();
-        Bankship();
+    
        // hudController.BoreSightMarker(spaceShipController.Thrusters);
       //  hudController.UpdateSpeedometer(spaceShipController.Thrusters.totalLinearVelocityInMetersPerSecond);
         //hudController.UpdateEnergyBar(spaceShipController.GetCurrentEnergy(), spaceShipController.MaxEnergy);

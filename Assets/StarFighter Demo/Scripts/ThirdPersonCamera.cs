@@ -32,16 +32,13 @@ namespace Cameras {
             if (target == null)
                 return;
 
-            // Calculate the desired position
-            //effect of the ship's velocity on the camera
-            targetVelocity = transform.TransformDirection( spaceShipController.GetComponent<Rigidbody>().linearVelocity);
+         
             // Calculate the desired position based on the target's position, height, and distance
-            Vector3 desiredPosition = target.position + target.up * height - target.forward * (distance + targetVelocity.magnitude * 0.1f);
+            Vector3 desiredPosition = target.position + target.up * height - target.forward.normalized * (distance);
 
 
-        
 
-            if(accelerationTracker.TotalAccelerationInMetersPerSecond.z > maxAcceleration)
+            if (accelerationTracker.TotalAccelerationInMetersPerSecond.z > maxAcceleration)
             {
                 // Calculate the acceleration of the target
                 float acceleration = accelerationTracker.Acceleration.magnitude;
