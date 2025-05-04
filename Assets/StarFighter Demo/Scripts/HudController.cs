@@ -26,9 +26,9 @@ public class HudController : MonoBehaviour
     public event Action<int, int> OnEnergyBarUpdate;
     public event Action<Vector3> OnSpeedometerUpdate;
     public event Action<SpaceShipThrusters> OnBoreSightMarkerUpdate;
-    public PlayerShipController playerShipController
+    public SpaceShipController playerShipController
     {
-        get { return GetComponent<PlayerShipController>(); }
+        get { return GetComponent<SpaceShipController>(); }
     }
     // Subscribe to the events in the Start method
 
@@ -78,6 +78,6 @@ public class HudController : MonoBehaviour
     {
         // Update the HUD elements based on the ship's state
         SpaceShipThrusters spaceShipThrusters = GetComponent<SpaceShipThrusters>();
-      
+        UpdateEnergyBar(playerShipController.GetCurrentEnergy(),playerShipController.MaxEnergy);
     }
 }

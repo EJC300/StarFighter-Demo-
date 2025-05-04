@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   thrustForce: 30
-  rotationSpeed: 2
+  rotationSpeed: 120
   maxSpeed: 120
-  AfterBurnerForce: 4
+  AfterBurnerForce: 400
   AfterSpeed: 200
   afterBurnerDrainRate: 1

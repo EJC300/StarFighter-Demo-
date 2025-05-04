@@ -119,6 +119,55 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &11146241
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 11146243}
+  - component: {fileID: 11146242}
+  m_Layer: 0
+  m_Name: World
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &11146242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11146241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97734ae52c79f0148b689db63af96cf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridX: 10
+  gridY: 10
+  gridZ: 10
+  spacing: 255
+  worldObject: {fileID: 89912659955688810, guid: 46441ace02095d8448258917f68bee0b, type: 3}
+--- !u!4 &11146243
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11146241}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &139705642 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4191349046365562626, guid: d580587503c62d34cb42722cdf5043dd, type: 3}
@@ -370,6 +419,7 @@ GameObject:
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
   - component: {fileID: 330585549}
+  - component: {fileID: 330585550}
   m_Layer: 0
   m_Name: ExternalView
   m_TagString: MainCamera
@@ -510,7 +560,7 @@ MonoBehaviour:
   target: {fileID: 3278175640712905051}
   distance: 20
   height: 4
-  damping: 5
+  damping: 20
   rotationDamping: 10
   maxAcceleration: 4
 --- !u!45 &330585549
@@ -522,6 +572,22 @@ Skybox:
   m_GameObject: {fileID: 330585543}
   m_Enabled: 1
   m_CustomSkybox: {fileID: 2100000, guid: 33bc59982d85a7446a9399262c1a8231, type: 2}
+--- !u!114 &330585550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7044460fda4e7b43b0af06512b220a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 3278175640712905051}
+  rotationSpeed: 5
+  heightOffset: 1
+  distance: 5
 --- !u!1 &369090450
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,7 +634,8 @@ GameObject:
   - component: {fileID: 373740162}
   - component: {fileID: 373740161}
   - component: {fileID: 373740160}
-  - component: {fileID: 373740159}
+  - component: {fileID: 373740163}
+  - component: {fileID: 373740164}
   m_Layer: 0
   m_Name: CockpitView
   m_TagString: Untagged
@@ -576,23 +643,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &373740159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 373740158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a69e4cf129f619a4fafc9ca7c629ab6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 584525486}
-  smoothSpeed: 5
-  rotationSpeed: 5
-  distance: 5
-  height: 2
 --- !u!114 &373740160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -703,6 +753,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &373740163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373740158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18cf81574d93dab45888bad8f81e4432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 584525486}
+  distance: 3
+  height: 1.2
+  damping: 100
+  rotationDamping: 50
+  maxAcceleration: 1
+--- !u!45 &373740164
+Skybox:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373740158}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 33bc59982d85a7446a9399262c1a8231, type: 2}
 --- !u!1 &401981710
 GameObject:
   m_ObjectHideFlags: 0
@@ -2336,6 +2413,7 @@ GameObject:
   - component: {fileID: 3278175640712905054}
   - component: {fileID: 3278175640712905053}
   - component: {fileID: 3278175640712905052}
+  - component: {fileID: 3278175640712905055}
   m_Layer: 0
   m_Name: PlayerShip
   m_TagString: Untagged
@@ -2658,6 +2736,23 @@ MonoBehaviour:
     derivativeGain: 0
     proportinalGain: 0
   shipData: {fileID: 11400000, guid: 97663965915dd4d4abbf1040b6378c16, type: 2}
+--- !u!114 &3278175640712905055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882495483220200336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b97be7acd0727d7409682d935898087c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cockpitCamera: {fileID: 373740158}
+  externalCamera: {fileID: 330585543}
+  externalUI: {fileID: 1690398189}
+  cockpitUI: {fileID: 1956384046}
+  playerInput: {fileID: 441417914}
 --- !u!4 &3701350064959214879
 Transform:
   m_ObjectHideFlags: 0
@@ -2958,3 +3053,4 @@ SceneRoots:
   - {fileID: 441417916}
   - {fileID: 330585546}
   - {fileID: 373740162}
+  - {fileID: 11146243}
