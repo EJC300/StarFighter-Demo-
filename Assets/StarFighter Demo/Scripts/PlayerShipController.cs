@@ -42,7 +42,7 @@ public class PlayerShipController : MonoBehaviour
 
         // Calculate the offset of the cursor from the screen center
         Vector3 cursorOffset = cursorScreenPosition - screenCenter;
-       float speedFactor = Utilities.Remap(rb.linearVelocity.magnitude,ship.maxSpeed,0,0.1f,0.5f,true);
+        float speedFactor = Utilities.Remap(rb.linearVelocity.magnitude,ship.maxSpeed,0,0.1f,0.5f,true);
         // Normalize the offset to get a value between -1 and 1
         float normalizedX = cursorOffset.x / (Screen.width / 2f);  // Horizontal offset
         float normalizedY = cursorOffset.y / (Screen.height / 2f); // Vertical offset
@@ -70,6 +70,7 @@ public class PlayerShipController : MonoBehaviour
     {
         ApplyThrust();
         ApplyPlayerRotation();
+       // Bankship();
         // Align the ship's forward direction with the cursor direction
        // ApplyTorqueTowardsCursor(cursorDirection);
 
