@@ -11,7 +11,7 @@ public class PlayerInput : MonoBehaviour
     public bool OnLoadFirstLevel()
     {       // This method is called when the player wants to start the game.
             // It returns true if the player pressed the start button.
-        return Keyboard.current.anyKey.wasPressedThisFrame;
+        return Keyboard.current.enterKey.wasPressedThisFrame;
     }
 
     public float MousePitch()
