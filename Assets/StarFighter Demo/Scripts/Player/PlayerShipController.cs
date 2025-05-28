@@ -1,7 +1,9 @@
 using UnityEngine;
 using SpaceShip;
+using StarterTemplates;
 using System.Diagnostics.Contracts;
 using UnityEngine.UI;
+using Utilties;
 [RequireComponent(typeof(Rigidbody))]
 
 public class PlayerShipController : MonoBehaviour

@@ -1,6 +1,6 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
-
+using StarterTemplates;
 public class GameController : MonoBehaviour
 {
    

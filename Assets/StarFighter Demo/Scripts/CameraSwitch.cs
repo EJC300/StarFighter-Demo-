@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using StarterTemplates;
 public class CameraSwitch : MonoBehaviour
 {
     // This script is used to switch between different camera views in a space simulation game.

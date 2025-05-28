@@ -2316,7 +2316,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1981417873}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa05a3b289e39cd40aea75c6f756934c, type: 3}
+  m_Script: {fileID: 11500000, guid: 971e5902ab73a8a4a999f06ac08840c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectileLaunchers:
@@ -3020,18 +3020,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52a61df5746a0c4b9f16ecbd2cada5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yawPID:
-    integralGain: 0
-    derivativeGain: 0
-    proportinalGain: 0
-  pitchPID:
-    integralGain: 0
-    derivativeGain: 0
-    proportinalGain: 0
-  rollPID:
-    integralGain: 0
-    derivativeGain: 0
-    proportinalGain: 0
   shipData: {fileID: 11400000, guid: 97663965915dd4d4abbf1040b6378c16, type: 2}
 --- !u!114 &3278175640712905055
 MonoBehaviour:

@@ -1,4 +1,4 @@
-using Unity.Hierarchy;
+
 using UnityEngine;
 
 namespace SpaceShip
@@ -8,10 +8,6 @@ namespace SpaceShip
     {
 
         private Rigidbody rb;
-
-        [SerializeField] private PIDController yawPID;
-        [SerializeField] private PIDController pitchPID;
-        [SerializeField] private PIDController rollPID;
         float prevVeloX;
         float prevVeloY;
         float prevVeloZ;
@@ -118,24 +114,7 @@ namespace SpaceShip
             Vector3 dragForce = -rb.linearVelocity.normalized * rb.linearVelocity.magnitude * 0.1f;
             rb.AddForce(dragForce, ForceMode.Acceleration);
         }
-        private void ApplyCorrectionTorque()
-        {  
-         
-          
-          
-            float rollCorrection = rollPID.result(Time.deltaTime, (prevVeloZ - (Mathf.Deg2Rad * transform.TransformDirection(rb.angularVelocity).z)));
-            float yawCorrection = yawPID.result(Time.deltaTime, (prevVeloY - (Mathf.Deg2Rad * transform.TransformDirection(rb.angularVelocity).y)));
-            float pitchCorrection = pitchPID.result(Time.deltaTime, (prevVeloX - (Mathf.Deg2Rad * transform.TransformDirection(rb.angularVelocity).x)));
-            
-            Vector3 angularCorrection = (Vector3.right * pitchCorrection) + (Vector3.up * yawCorrection) + (Vector3.forward * rollCorrection);
-         
-            
-            rb.AddTorque(angularCorrection);
-            prevVelo = transform.TransformDirection(rb.angularVelocity);
-             prevVeloX = Mathf.Deg2Rad * prevVelo.x;
-            prevVeloY = Mathf.Deg2Rad * prevVelo.y;
-           prevVeloZ = Mathf.Deg2Rad * prevVelo.z;
-        }
+    
         private void ApplySlowDownForce()
         {
             // Apply slow down force

@@ -1,4 +1,6 @@
 using UnityEngine;
+using Player;
+using SpaceShip;
 namespace Cameras {
     public class ThirdPersonCamera : MonoBehaviour
     {
