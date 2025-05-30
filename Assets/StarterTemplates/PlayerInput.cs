@@ -57,10 +57,37 @@ public class PlayerInput : MonoBehaviour
         // It uses the joystick button to check if the player is switching cameras.
         return Keyboard.current.cKey.wasPressedThisFrame;
     }
-    public float ThrustAxis()
+
+    public float ThrustStrafeAxis()
     {
-        // This method returns the thrust input from the joystick.
-        // It uses the joystick axis to calculate the thrust input.
+        float thrustInput = 0;
+        if (Keyboard.current.aKey.isPressed)
+        {
+            thrustInput = 1;
+        }
+        else if (Keyboard.current.dKey.isPressed)
+        {
+            thrustInput = -1;
+        }
+        return thrustInput;
+    }
+
+    public float ThrustAscendAxis()
+    {
+        float thrustInput = 0;
+        if (Keyboard.current.rKey.isPressed)
+        {
+            thrustInput = 1;
+        }
+        else if (Keyboard.current.fKey.isPressed)
+        {
+            thrustInput = -1;
+        }
+        return thrustInput;
+    }
+    public float ThrustForwardAxis()
+    {
+
         float thrustInput = 0;
         if (Keyboard.current.wKey.isPressed)
         {
@@ -88,11 +115,11 @@ public class PlayerInput : MonoBehaviour
         // This method returns the roll input from the joystick.
         // It uses the joystick axis to calculate the roll input.
         float rollInput = 0;
-        if (Keyboard.current.aKey.isPressed)
+        if (Keyboard.current.qKey.isPressed)
         {
             rollInput = -1;
         }
-        else if (Keyboard.current.dKey.isPressed)
+        else if (Keyboard.current.eKey.isPressed)
         {
             rollInput = 1;
         }
@@ -121,6 +148,9 @@ public class PlayerInput : MonoBehaviour
     
 
     }
+    
+
+
 
 
     public Vector3 MousePositionInWorldWithJoystick(float Sensitivity)

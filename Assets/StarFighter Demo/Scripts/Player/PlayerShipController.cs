@@ -4,6 +4,7 @@ using StarterTemplates;
 using System.Diagnostics.Contracts;
 using UnityEngine.UI;
 using Utilties;
+using Player;
 [RequireComponent(typeof(Rigidbody))]
 
 public class PlayerShipController : MonoBehaviour
@@ -16,24 +17,16 @@ public class PlayerShipController : MonoBehaviour
     {
         get { return GetComponent<Rigidbody>(); }
     }
+    private SpaceShipController spaceShipController
+    {
+        get { return GetComponent<SpaceShipController>(); }
+    }
 
     [SerializeField] private Ship ship;
   
 
   
-    private void Bankship()
-    {
-        // Get the Y input from the player
-        float yawInput = playerInput.MouseYaw();
-
-        // Calculate the target banking angle based on the input
-        float targetBankAngle = -yawInput * 15; // Adjust the multiplier to control the banking sensitivity
-        Quaternion targetRotation = Quaternion.Euler(transform.GetChild(0).transform.localEulerAngles.x, transform.GetChild(0).transform.localEulerAngles.y, targetBankAngle);
-        float clampedAngle = Mathf.Clamp(targetBankAngle, -15, 15); // Clamp the angle to a range of -15 to 15 degrees
-        targetRotation = Quaternion.Euler(transform.GetChild(0).transform.localEulerAngles.x, transform.GetChild(0).transform.localEulerAngles.y, clampedAngle);
-
-        transform.GetChild(0).localRotation= Quaternion.Slerp(transform.GetChild(0).localRotation, targetRotation, Time.deltaTime * ship.rotationSpeed * 0.5f);
-    }
+  
     private void ApplyPlayerRotation()
     {
         // Get the screen center
@@ -44,7 +37,7 @@ public class PlayerShipController : MonoBehaviour
 
         // Calculate the offset of the cursor from the screen center
         Vector3 cursorOffset = cursorScreenPosition - screenCenter;
-        float speedFactor = Utilities.Remap(rb.linearVelocity.magnitude,ship.maxSpeed,0,0.1f,0.5f,true);
+        float speedFactor = Utilities.Remap(rb.linearVelocity.magnitude,ship.maxSpeed,0,0.3f,0.5f,true);
         // Normalize the offset to get a value between -1 and 1
         float normalizedX = cursorOffset.x / (Screen.width / 2f);  // Horizontal offset
         float normalizedY = cursorOffset.y / (Screen.height / 2f); // Vertical offset
@@ -63,24 +56,24 @@ public class PlayerShipController : MonoBehaviour
 
     void ApplyThrust()
     {
-      float inputForward = ship.thrustForce * playerInput.ThrustAxis();
-      float inputAfterBurner = ship.AfterBurnerForce * Time.deltaTime * playerInput.AfterBurnerAxis();
-      rb.AddRelativeForce(Vector3.forward * (inputForward + inputAfterBurner ));
+      float inputForward = playerInput.ThrustForwardAxis() * ship.thrustForce ;
+      float inputUp = playerInput.ThrustAscendAxis() * ship.maneuveringThrustForce;
+      float inputLeft = playerInput.ThrustStrafeAxis() * ship.maneuveringThrustForce;
+      float inputAfterBurner = playerInput.ThrustForwardAxis() * ship.AfterBurnerForce * Time.deltaTime * playerInput.AfterBurnerAxis();
+      spaceShipController.Thrust(inputForward, transform.forward);
+      spaceShipController.Thrust(inputUp, transform.up);
+      spaceShipController.Thrust(inputLeft, transform.right);
+      spaceShipController.ApplyAfterBurner(inputAfterBurner);
+
+
+      
     }
     
     private void FixedUpdate()
     {
         ApplyThrust();
         ApplyPlayerRotation();
-       // Bankship();
-        // Align the ship's forward direction with the cursor direction
-       // ApplyTorqueTowardsCursor(cursorDirection);
-
-        // Apply thrust in the forward direction
-    
-       // hudController.BoreSightMarker(spaceShipController.Thrusters);
-      //  hudController.UpdateSpeedometer(spaceShipController.Thrusters.totalLinearVelocityInMetersPerSecond);
-        //hudController.UpdateEnergyBar(spaceShipController.GetCurrentEnergy(), spaceShipController.MaxEnergy);
+      
 
     }
 }

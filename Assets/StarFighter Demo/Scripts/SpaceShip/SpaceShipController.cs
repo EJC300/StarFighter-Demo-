@@ -16,7 +16,7 @@ namespace Player
         }
         private int maxEnergy = 100;
         [SerializeField] private float CurrentEnergy = 100;
-        private int energyPerSecond = 1;
+        private int energyPerSecond = 5;
 
         public int MaxEnergy
         {
@@ -45,25 +45,11 @@ namespace Player
             // Get the current energy level of the ship
             return CurrentEnergy;
         }
-        public void ApplyShipRotation(float inputX, float inputY, float inputZ)
-        {
-            Vector3 x = inputX * Vector3.right;
-            Vector3 y = inputY * Vector3.up;
-            Vector3 z = inputZ * Vector3.forward;
 
-            Vector3 shipRotationVector = x + y + z;
-
-            thrusters.ApplyTorque(shipRotationVector);
-
-
-
-
-        }
-
-        public void Thrust(float thrustInput)
+        public void Thrust(float thrustInput,Vector3 direction)
         {
             // Apply thrust to the ship
-            Vector3 thrustDirection = transform.forward * thrustInput;
+            Vector3 thrustDirection = direction * thrustInput;
 
 
             thrusters.ApplyThrust(thrustDirection);
@@ -75,10 +61,10 @@ namespace Player
         public void ApplyAfterBurner(float input)
         {
             // Apply afterburner force
-            if (CurrentEnergy > 0)
+            if (CurrentEnergy > 0 && input > 0f)
             {
-                // DrainEnergy((int)thrusters.AfterBurnerDraineRate) ;
-                thrusters.ApplyAfterBurner(input);
+                DrainEnergy((int)thrusters.AfterBurnerDraineRate);
+                Thrust(input, transform.forward);
             }
             else
             {
@@ -86,34 +72,7 @@ namespace Player
             }
 
         }
-        public void BankWhileTurning()
-        {
-            // Bank the ship while turning
-            float bankAmount = thrusters.totalAngularVelocityInDegreesPerSecond.y;
-            float angle = Vector3.SignedAngle(thrusters.totalAngularVelocityInDegreesPerSecond, transform.forward, transform.up);
-            if (Mathf.Abs(thrusters.totalAngularVelocityInDegreesPerSecond.y) > 5)
-            {
-
-
-                bankAmount = Mathf.Sign(thrusters.totalAngularVelocityInDegreesPerSecond.y) * -45;
-            }
-            else
-            {
-                bankAmount = 0;
-            }
-
-            Vector3 bankRotation = new Vector3(0, 0, bankAmount);
-
-            if (Mathf.Abs(bankRotation.z) < 15)
-            {
-                transform.eulerAngles = Vector3.MoveTowards(transform.eulerAngles, transform.eulerAngles - bankRotation, Time.deltaTime);
-            }
-            else
-            {
-                transform.eulerAngles = Vector3.MoveTowards(transform.eulerAngles, new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0), Time.deltaTime);
-            }
-
-        }
+       
 
         void Start()
         {

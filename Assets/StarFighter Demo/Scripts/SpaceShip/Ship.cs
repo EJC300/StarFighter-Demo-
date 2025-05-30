@@ -6,6 +6,7 @@ namespace SpaceShip
     {
         public Rigidbody rb;
         public float thrustForce = 10f;
+        public float maneuveringThrustForce = 5.0f;
 
         public float rotationSpeed = 100f;
         public float maxSpeed = 20f;

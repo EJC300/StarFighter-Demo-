@@ -11,7 +11,7 @@ namespace SpaceShip
         float prevVeloX;
         float prevVeloY;
         float prevVeloZ;
-
+       
         [SerializeField] Ship shipData;
         private Vector3 prevVelo;
         private float thrustForce
@@ -92,13 +92,7 @@ namespace SpaceShip
             rb.AddForce(rb.transform.rotation * rb.transform.TransformDirection(Vector3.forward) * AfterBurnerForce * input, ForceMode.VelocityChange);
             rb.maxLinearVelocity = AfterSpeed;
         }
-        private void ApplyRotationalDrag()
-        {
-            // Apply rotational drag to the ship
-            Vector3 angularVelocity = rb.angularVelocity;
-            Vector3 dragTorque = -angularVelocity * 10;
-            rb.AddTorque(dragTorque, ForceMode.Acceleration);
-        }
+      
       
 
 
