@@ -9,14 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8ec8db4da003054e8ab3778f756e701, type: 3}
-  m_Name: DemoShip
+  m_Script: {fileID: 11500000, guid: d8c9b1022a4368049ac364e9758f0e36, type: 3}
+  m_Name: TestMissile
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
-  thrustForce: 30
-  maneuveringThrustForce: 5
-  rotationSpeed: 120
-  maxSpeed: 120
-  AfterBurnerForce: 400
-  AfterSpeed: 200
-  afterBurnerDrainRate: 10
+  speed: 20
+  damage: 10
+  lifetime: 100
+  bulletModel: {fileID: 6227754213877246549, guid: 5369dd9cf987dd043add00082de30945, type: 3}
+  explosionPrefab: {fileID: 0}
