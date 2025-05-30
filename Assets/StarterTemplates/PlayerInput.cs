@@ -71,7 +71,27 @@ public class PlayerInput : MonoBehaviour
         }
         return thrustInput;
     }
-
+    public bool CycleTargets()
+    {
+        return Keyboard.current.xKey.isPressed;
+    }
+    public bool CycleMissiles()
+    {
+        return Keyboard.current.zKey.wasPressedThisFrame;
+    }
+    public bool FireMissile()
+    {
+        return Mouse.current.rightButton.isPressed;
+    }
+    public bool FullGuns()
+    {
+        return Keyboard.current.hKey.wasPressedThisFrame;
+    }
+    public bool SwitchWeapon()
+    {
+        return Keyboard.current.tKey.wasPressedThisFrame;
+       
+    }
     public float ThrustAscendAxis()
     {
         float thrustInput = 0;

@@ -5,19 +5,73 @@ namespace Player
 {
     public class PlayerWeapons : MonoBehaviour
     {
-        [SerializeField] private ProjectileLauncher[] projectileLaunchers; // Array of projectile launchers
-                                                                           //TODO : Add an ability to switch between different weapons
-        private void Update()
+        [SerializeField] private ProjectileLauncher[] bulletLaunchers; // Array of bullet launchers
+        [SerializeField ] private ProjectileLauncher[] missileLaunchers;
+        private bool allGuns = true;
+        private int selectedGunIndex;
+        private int currentMissileIndex;
+        
+
+        private void FireAllGuns()
         {
-            // Check if the player is pressing the fire button
-            if (Singleton.instance.PlayerInput.FireInput())
+            if(allGuns)
             {
-                Debug.Log("Fire button pressed");
-                // Loop through each projectile launcher and fire it
-                foreach (var launcher in projectileLaunchers)
+                foreach (var launcher in bulletLaunchers)
                 {
                     launcher.FireWapon();
                 }
+            }
+        }
+        private void ShowLockOn()
+        {
+
+        }
+        private void SelectMissile()
+        {
+           if( Singleton.instance.PlayerInput.CycleMissiles())
+           {
+                currentMissileIndex = (currentMissileIndex + missileLaunchers.Length - 1) % missileLaunchers.Length;
+           }
+        }
+        private void FireSelectedMissile()
+        {
+           if(Singleton.instance.PlayerInput.FireMissile())
+            {
+                missileLaunchers[selectedGunIndex].FireWapon();
+            }
+        }
+        private void SwitchGun()
+        {
+            //Use switch gun key to switch between guns all guns switched off if the index is at end then all guns on
+            //The value will also go with the hud icon and weapon switch sound
+            if (Singleton.instance.PlayerInput.SwitchWeapon())
+            {
+                allGuns = false;
+                selectedGunIndex = (selectedGunIndex + bulletLaunchers.Length-1) % bulletLaunchers.Length;
+            }
+            else if (Singleton.instance.PlayerInput.FullGuns())
+            {
+                allGuns = true;
+            }
+        }
+        private void FireSelectedGun()
+        {
+            if (!allGuns)
+            {
+                bulletLaunchers[selectedGunIndex].FireWapon();
+            }
+        }
+        //Missile Launchers;                                                                  //TODO : Add an ability to switch between different weapons
+        private void Update()
+        {
+            SwitchGun();
+        
+            if (Singleton.instance.PlayerInput.FireInput())
+            {
+                Debug.Log("Fire button pressed");
+           
+                FireAllGuns();
+                FireSelectedGun();
             }
         }
 

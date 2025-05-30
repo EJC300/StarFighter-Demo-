@@ -6,11 +6,12 @@ namespace Weapons
     public class Projectile : MonoBehaviour
     {
         //TODO : Use Bullet Scriptable Object for different types of projectiles
-        [SerializeField] private Bullet bullet; // Bullet Scriptable Object
+        [SerializeField] private Bullet Bullet; // Bullet Scriptable Object
+        public Bullet bullet { get { return Bullet; } }
 
         private Rigidbody shipBody;
-        private Rigidbody rb { get { return GetComponent<Rigidbody>(); } } // Rigidbody component of the projectile
-
+        private Rigidbody RB { get { return GetComponent<Rigidbody>(); } } // Rigidbody component of the projectile
+        public Rigidbody rb { get { return GetComponent<Rigidbody> (); } }
         private void Start()
         {
             GameObject model = Instantiate(bullet.BulletModel, transform.position, transform.rotation); // Instantiate the bullet model
@@ -22,18 +23,17 @@ namespace Weapons
             this.shipBody = shipBody;
             // Set the projectile's speed and rotation to match the ship's
             transform.rotation = shipBody.rotation;
-
-            // rb.linearVelocity = shipBody.linearVelocity; // Set the projectile's velocity to match the ship's
-            shipBody.linearVelocity = shipBody.linearVelocity;
+            
+             rb.linearVelocity = shipBody.linearVelocity; // Set the projectile's velocity to match the ship's
+          
 
         }
 
-        private void Update()
+        public virtual void ProjectileRun()
         {
 
-            rb.linearVelocity += (transform.forward * bullet.Speed); // Set the linear velocity of the projectile
-
         }
+     
         private void DestroyProjectile()
         {
             // Destroy the projectile after its lifetime
