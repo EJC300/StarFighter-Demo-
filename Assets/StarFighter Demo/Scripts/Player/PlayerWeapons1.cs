@@ -9,7 +9,7 @@ namespace Player
         [SerializeField ] private ProjectileLauncher[] missileLaunchers;
         private bool allGuns = true;
         private int selectedGunIndex;
-        private int currentMissileIndex;
+      [SerializeField]  private int currentMissileIndex;
         
 
         private void FireAllGuns()
@@ -37,7 +37,7 @@ namespace Player
         {
            if(Singleton.instance.PlayerInput.FireMissile())
             {
-                missileLaunchers[selectedGunIndex].FireWapon();
+                missileLaunchers[currentMissileIndex].FireWapon();
             }
         }
         private void SwitchGun()
@@ -65,7 +65,8 @@ namespace Player
         private void Update()
         {
             SwitchGun();
-        
+            SelectMissile();
+            FireSelectedMissile();
             if (Singleton.instance.PlayerInput.FireInput())
             {
                 Debug.Log("Fire button pressed");

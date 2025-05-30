@@ -73,7 +73,7 @@ public class PlayerInput : MonoBehaviour
     }
     public bool CycleTargets()
     {
-        return Keyboard.current.xKey.isPressed;
+        return Keyboard.current.xKey.wasPressedThisFrame;
     }
     public bool CycleMissiles()
     {
