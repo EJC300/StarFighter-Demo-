@@ -1,4 +1,5 @@
 using UnityEngine;
+
 namespace SpaceShip
 {
     [CreateAssetMenu(fileName = "Ship", menuName = "Scriptable Objects/Ship")]

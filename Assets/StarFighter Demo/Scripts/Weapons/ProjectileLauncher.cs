@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using Player;
+using SpaceShip;
 namespace Weapons
 {
     public class ProjectileLauncher : MonoBehaviour
@@ -27,32 +27,46 @@ namespace Weapons
         /// Reference to the ship's Rigidbody
         private Rigidbody shipBody { get { return transform.parent.parent.GetComponent<Rigidbody>(); } } // Rigidbody component of the ship
         //Convert this into spawn missile and spawn bullet
+
+    
         void SpawnProjectile()
         {
-            // Instantiate the projectile prefab at the spawn point
-            GameObject projectileInstance = Instantiate(projectilePrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
-            // Get the Projectile component of the instantiated projectile
-            Projectile projectile = projectileInstance.GetComponent<Projectile>();
-            // Setup the projectile with the ship's Rigidbody
+       
 
             if (IsMissileLauncher && ammo >= 0)
             {
-               Missile missileToFire = projectile as Missile;
-               
+                ammo -= 1;
+                // Instantiate the projectile prefab at the spawn point
+                GameObject projectileInstance = Instantiate(projectilePrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+                // Get the Projectile component of the instantiated projectile
+                Projectile projectile = projectileInstance.GetComponent<Projectile>();
+                // Setup the projectile with the ship's Rigidbody
+                Missile missileToFire = projectile as Missile;
+                projectile.SetupBullet(shipBody);
                 if (missileToFire.targetBody == null)
                 {
                     missileToFire.targetBody = target;
                 }
 
                
-                ammo -= 1;
+             
 
                 
+            }
+            else if(!IsMissileLauncher) 
+            {
+                // Instantiate the projectile prefab at the spawn point
+                GameObject projectileInstance = Instantiate(projectilePrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+                // Get the Projectile component of the instantiated projectile
+                Projectile projectile = projectileInstance.GetComponent<Projectile>();
+                // Setup the projectile with the ship's Rigidbody
+                Missile missileToFire = projectile as Missile;
+                projectile.SetupBullet(shipBody);
             }
 
            
 
-            projectile.SetupBullet(shipBody);
+          
             
         }
      
@@ -60,23 +74,24 @@ namespace Weapons
         {
             if (Time.time > nextFire)
             {
+                SpawnProjectile();
                 // Check if the player has enough energy to fire
-                if (spaceShipController.GetCurrentEnergy() > 5f)
+                if (spaceShipController.GetCurrentEnergy() > 5f && !IsMissileLauncher)
                 {
                     // Fire the projectile
-                    SpawnProjectile();
+                
                     // Drain energy from the ship
-                    if (!IsMissileLauncher)
-                    {
+                    
 
                         spaceShipController.DrainEnergy((int)energyDrain);
-                    }
+                    
                   
                         // Set the time for the next shot
 
-                        nextFire = Time.time + fireRate;
+                       
 
                 }
+                nextFire = Time.time + fireRate;
             }
 
 

@@ -41,16 +41,16 @@ namespace Cameras {
         }
         private void Start()
         {
-            offset = Vector3.up * height - Vector3.forward * (distance);
+            
         }
         private void FixedUpdate()
         {
             if (target == null)
                 return;
 
-         
+            offset = Vector3.up * height - Vector3.forward * (distance);
             // Calculate the desired position based on the target's position, height, and distance
-           Vector3 desiredPosition = target.position + (target.rotation * offset);
+            Vector3 desiredPosition = target.position + (target.rotation * offset);
 
            
 

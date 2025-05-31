@@ -1,14 +1,17 @@
-using System;
-using SpaceShip;
+
 using UnityEngine;
-namespace Player
+using DamageSystem;
+namespace SpaceShip
 {
+   
     public class SpaceShipController : MonoBehaviour
     {
 
         //Apply thrust and torque to the ship
 
         private SpaceShipThrusters thrusters;
+        private Shields shield;
+        private Health health;
         public SpaceShipThrusters Thrusters
         {
             get { return thrusters; }
@@ -30,7 +33,11 @@ namespace Player
             // Regenerate energy over time
             CurrentEnergy += (int)(energyPerSecond) * Time.deltaTime;
             CurrentEnergy = Mathf.Clamp(CurrentEnergy, 0, MaxEnergy);
-
+            if(shield.CurrentShield < shield.MaxShields)
+            {
+                DrainEnergy(Mathf.FloorToInt(shield.ChargeAmount));
+                shield.RechargeShields();
+            }
         }
 
         public void DrainEnergy(int amount)
@@ -77,11 +84,34 @@ namespace Player
         void Start()
         {
             thrusters = GetComponent<SpaceShipThrusters>();
+            shield = GetComponent<Shields>();
+            health = GetComponent<Health>();
         }
-
+        
         internal Vector3 GetAngularVelocity()
         {
             return thrusters.totalAngularVelocityInDegreesPerSecond * Mathf.Deg2Rad;
+        }
+
+        public void OnCollisionEnter(Collision collision)
+        {
+            //Test
+            if (collision.collider.transform.tag == "Obstacle")
+            {
+                Debug.Log("Damage");
+                SetDamage(100 * thrusters.totalLinearVelocityInMetersPerSecond.magnitude, health);
+            }
+        }
+        public void SetDamage(float damage, IDamageComponent damageComponent)
+        {
+     
+            
+            shield.DepleteShield(damage * 0.5f);
+            if (shield.CurrentShield > 0.0f)
+            {
+                health.LowerHealth(damage);
+            }
+            
         }
     }
 }

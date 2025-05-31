@@ -1,6 +1,4 @@
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
-
 public class CockpitCamera : MonoBehaviour
 {
     // This script is used to control the cockpit camera of a spaceship in a space simulation game.

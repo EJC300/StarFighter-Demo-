@@ -6,7 +6,8 @@ namespace Weapons
         //Get Target if applicable
         //TODO make a targetable object with a property of rigidbody
         public Rigidbody targetBody;
-        
+        private float launchTime = 3;
+        private float timer;
         //Move in a constant line 
 
         private void Move()
@@ -24,7 +25,8 @@ namespace Weapons
         //Lead target very simple integration
         private void LeadTarget()
         {
-            if (targetBody != null)
+            timer -= Time.deltaTime;
+            if (targetBody != null && timer < 1)
             {
                 var travelTime = this.bullet.Speed / (targetBody.position - transform.position).sqrMagnitude;
                 var lead = targetBody.position + targetBody.linearVelocity * travelTime;
@@ -46,7 +48,12 @@ namespace Weapons
                //If it is within range damage it
                //destroy self spawn explosion effect prefab
         }
-       
+        private void Awake()
+        {
+            
+        
+        timer = launchTime;
+        }
         private void Update()
         {
             LeadTarget();

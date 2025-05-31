@@ -1,10 +1,7 @@
 {
-    "name": "Weapons",
+    "name": "DamageSystem",
     "rootNamespace": "",
-    "references": [
-        "StarterTemplates",
-        "SpaceShip"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
