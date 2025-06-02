@@ -181,8 +181,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2522818630011173680}
-  - component: {fileID: 8392492682186661376}
-  - component: {fileID: 4047467392456988200}
   m_Layer: 0
   m_Name: Asteroid
   m_TagString: Untagged
@@ -208,49 +206,6 @@ Transform:
   - {fileID: 7456978268969253576}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!205 &8392492682186661376
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6844082858942249853}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
-  m_Size: 1
-  m_FadeMode: 1
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 3281851227120467963}
-  - screenRelativeHeight: 0.3
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 2767581937424087645}
-  - screenRelativeHeight: 0.1
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 3435711368247236878}
-  m_Enabled: 1
---- !u!114 &4047467392456988200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6844082858942249853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3a0cabe59294af4f969e446a67ed463, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  randomOffset: {x: 0.5, y: 2, z: 1}
-  randomScale: {x: 2, y: 0.5, z: 1}
-  randomOffsetMultiplier: 5
-  randomScaleMultiplier: 25
 --- !u!1 &8346642466887355583
 GameObject:
   m_ObjectHideFlags: 0

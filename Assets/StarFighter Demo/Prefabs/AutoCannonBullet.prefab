@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 715464841680957085}
   - component: {fileID: 1441050107275834599}
   - component: {fileID: -3345855421064772092}
+  - component: {fileID: -121669226132262477}
   m_Layer: 0
   m_Name: AutoCannonBullet
   m_TagString: Untagged
@@ -73,3 +74,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bullet: {fileID: 11400000, guid: 79f1f16d162ce4e46b077b50e127d07d, type: 2}
+--- !u!65 &-121669226132262477
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4071527576512238877}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

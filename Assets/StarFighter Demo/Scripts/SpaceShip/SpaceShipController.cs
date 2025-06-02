@@ -99,10 +99,10 @@ namespace SpaceShip
             if (collision.collider.transform.tag == "Obstacle")
             {
                 Debug.Log("Damage");
-                SetDamage(100 * thrusters.totalLinearVelocityInMetersPerSecond.magnitude, health);
+                SetDamage(100 * thrusters.totalLinearVelocityInMetersPerSecond.magnitude);
             }
         }
-        public void SetDamage(float damage, IDamageComponent damageComponent)
+        public void SetDamage(float damage)
         {
      
             

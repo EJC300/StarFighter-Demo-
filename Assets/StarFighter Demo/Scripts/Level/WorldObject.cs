@@ -1,16 +1,19 @@
 using UnityEngine;
-
+using DamageSystem;
 public class WorldObject : MonoBehaviour
 {
-    //World Objects are things such as asteroids or debris that can be placed in a grid randomly and spaced
+    //World Objects are things such as asteroids  debris or AI Pods that can be placed in a grid randomly and spaced 
     [SerializeField] private Vector3 randomOffset;
     [SerializeField] private Vector3 randomScale;
     [SerializeField] private float randomOffsetMultiplier;
     [SerializeField] private float randomScaleMultiplier;
+    [SerializeField] private GameObject worldModel;
     private Vector3  randomRotation;
     //Setup Object at start
     public void PlaceSelf(float x ,float y ,float z,float spacing)
     {
+       GameObject model = Instantiate(worldModel,transform.position,Quaternion.identity);
+       model.transform.parent = transform;
        randomOffset.x = Random.Range(0, spacing / 2);
        randomOffset.y = Random.Range(0,  spacing/2);
        randomOffset.z = Random.Range(0, spacing/2);

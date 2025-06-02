@@ -2,9 +2,10 @@ using UnityEngine;
 
 namespace DamageSystem
 {
-    public class Shields : MonoBehaviour,IDamageComponent
+    public class Shields : MonoBehaviour,IDamageable
     {
-
+        [Range(0,1)]
+        [SerializeField] private float shieldAbsortion;
         [SerializeField] private float maxShields;
         [SerializeField] private float chargeAmount;
         private float currentShield;
@@ -19,7 +20,7 @@ namespace DamageSystem
         }
         public void DepleteShield(float amount)
         {
-            currentShield -= amount * Time.deltaTime;
+            currentShield -= amount * shieldAbsortion * Time.deltaTime;
         }
        public void RechargeShields()
         {
@@ -33,6 +34,11 @@ namespace DamageSystem
         {
             currentShield = Mathf.Clamp(currentShield,0, maxShields);
           
+        }
+
+        public void SetDamage(float damage)
+        {
+           DepleteShield(damage);
         }
     }
 }

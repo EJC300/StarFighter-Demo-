@@ -1220,8 +1220,8 @@ MonoBehaviour:
   gridX: 10
   gridY: 10
   gridZ: 10
-  spacing: 350
-  worldObject: {fileID: 89912659955688810, guid: 46441ace02095d8448258917f68bee0b, type: 3}
+  spacing: 80
+  worldObject: {fileID: 5755421042193908502, guid: 46441ace02095d8448258917f68bee0b, type: 3}
 --- !u!4 &1511224751
 Transform:
   m_ObjectHideFlags: 0
