@@ -3,7 +3,8 @@
     "rootNamespace": "",
     "references": [
         "StarterTemplates",
-        "SpaceShip"
+        "SpaceShip",
+        "DamageSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

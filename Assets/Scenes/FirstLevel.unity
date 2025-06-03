@@ -151,7 +151,7 @@ MonoBehaviour:
   gridX: 15
   gridY: 15
   gridZ: 15
-  spacing: 25
+  spacing: 300
   worldObject: {fileID: 5755421042193908502, guid: 46441ace02095d8448258917f68bee0b, type: 3}
 --- !u!4 &11146243
 Transform:

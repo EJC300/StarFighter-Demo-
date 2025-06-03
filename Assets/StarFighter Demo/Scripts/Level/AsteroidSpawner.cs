@@ -1,22 +1,22 @@
 using UnityEngine;
 namespace Level
 {
-    public class WorldGridSpawner : MonoBehaviour
+    public class AsteroidSpawner : MonoBehaviour
     {
         //Grid SizeX
-        [SerializeField] private float gridX;
+        public float gridX;
         //Grid SizeY
-        [SerializeField] private float gridY;
+        public float gridY;
         //Grid SizeZ
-        [SerializeField] private float gridZ;
+        public float gridZ;
 
         //Grid Spacing to offset position of world object
-        [SerializeField] private float spacing;
+        public float spacing;
 
-        [SerializeField] private GameObject worldObject;
+        [SerializeField] private GameObject asteroidPrefab;
 
 
-        private void Start()
+        public void Generate()
         {
             Vector3 offset = new Vector3(
             (gridX - 1) * spacing / -2,
@@ -38,9 +38,9 @@ namespace Level
                         );
 
                         // Instantiate and place the object
-                        GameObject instance = Instantiate(worldObject, position, Quaternion.identity);
-                        WorldObject gameWorldObject = instance.GetComponent<WorldObject>();
-                        gameWorldObject.PlaceSelf(position.x, position.y, position.z, spacing);
+                        GameObject instance = Instantiate(asteroidPrefab, position, Quaternion.identity);
+                        AsteroidObject asteroid = instance.GetComponent<AsteroidObject>();
+                        asteroid.PlaceSelf(position.x, position.y, position.z, spacing);
                     }
                 }
             }

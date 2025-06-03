@@ -1,6 +1,6 @@
 using UnityEngine;
 using DamageSystem;
-public class WorldObject : MonoBehaviour
+public class AsteroidObject : MonoBehaviour
 {
     //World Objects are things such as asteroids  debris or AI Pods that can be placed in a grid randomly and spaced 
     [SerializeField] private Vector3 randomOffset;
